@@ -16,14 +16,11 @@ public class PlayerMove : MonoBehaviour
     CharacterController m_characterCtr;
 
     public void MoveTo(Vector3 direction, float speed)
-    {
-        
+    {        
         //moveDirection = direction;
         moveDirection = new Vector3(direction.x, moveDirection.y, direction.z);
         //m_speed = moveDirection.magnitude * normalSpeed;
-        m_characterCtr.Move(moveDirection * speed * Time.deltaTime);
-            
-        
+        m_characterCtr.Move(moveDirection * speed * Time.deltaTime);       
     }
 
 
@@ -32,6 +29,7 @@ public class PlayerMove : MonoBehaviour
         if(m_characterCtr.isGrounded == true)
         {
             moveDirection.y = jumpForce;
+            m_animator.SetTrigger("Jump");
         }
     }
 
