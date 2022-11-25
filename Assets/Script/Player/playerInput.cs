@@ -12,7 +12,7 @@ public class playerInput : MonoBehaviour
     public string runButtonName = "Sprint";
     
     public Vector2 moveInput { get; private set; }
-    public bool fire { get; private set; }
+    public bool attack { get; private set; }
     public bool jump { get; private set; }
     public float run { get; private set; }
     public float runspeed { get; private set; }
@@ -43,6 +43,6 @@ public class playerInput : MonoBehaviour
 
         run = 0.5f + Input.GetAxis(runButtonName) * 0.5f;
         jump = Input.GetButtonDown(jumpButtonName);
-        fire = Input.GetButtonDown(attackButtonName);
+        attack = Input.GetButtonDown(attackButtonName);
     }
 }
