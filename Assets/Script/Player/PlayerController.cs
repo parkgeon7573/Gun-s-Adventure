@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerStat m_stat;
+    enum PlayerState
+    {
+        Normal,
+        Sowrd,
+        Die
+    }
+    PlayerState m_state;
+    PlayerStat m_playerstat;
     CharacterController m_characterController;
     playerInput m_playerInput;
     Animator m_animator;
@@ -54,39 +61,48 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_stat = gameObject.GetComponent<PlayerStat>();
+        m_playerstat = gameObject.GetComponent<PlayerStat>();
         m_playerInput = GetComponent<playerInput>();
         m_animator = GetComponent<Animator>();
         m_characterController = GetComponent<CharacterController>();
         m_camera = Camera.main;
+        
     }
     private void FixedUpdate()
     {
         spinCamera();
-        Move(m_playerInput.moveInput);
-        
-        
+        MoveUpdate(m_playerInput.moveInput);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Attack();
+       
+        switch (m_state)
+        {
+            case PlayerState.Normal:
+                NormalAttack();
+                break;
+            case PlayerState.Die:
+                break;
+            case PlayerState.Sowrd:
+                break;
+        }
+
         Jump();
-        UpdateAnimation(m_playerInput.moveInput);
+        MoveAnimation(m_playerInput.moveInput);
     }
         
-    public void Move(Vector2 moveInput) 
+    public void MoveUpdate(Vector2 moveInput) 
     {
-        var targetSpeed = m_stat.Speed * moveInput.magnitude;
+        var targetSpeed = m_playerstat.Speed * moveInput.magnitude;
         var moveDirection = Vector3.Normalize(transform.forward * moveInput.y + transform.right * moveInput.x);
 
         currentVelocityY += Time.deltaTime * Physics.gravity.y * 5;
 
         var velocity = moveDirection * targetSpeed + Vector3.up * currentVelocityY;
 
-        m_characterController.Move(velocity * Time.deltaTime * m_playerInput.runspeed);
-
+        m_characterController.Move(velocity * Time.deltaTime);
         if (m_characterController.isGrounded) currentVelocityY = 0f;   
     }
     public void Jump() 
@@ -100,16 +116,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void NormalAttack()
     {
         if(m_playerInput.attack)
             TriggerAnim("Attack1");
     }
 
-    private void UpdateAnimation(Vector2 moveInput)
+    private void MoveAnimation(Vector2 moveInput)
     {
-        m_animator.SetFloat("Vertical Move", moveInput.y * m_playerInput.run, 0.3f, Time.deltaTime);
-        m_animator.SetFloat("Horizontal Move", moveInput.x * m_playerInput.run, 0.2f, Time.deltaTime);
+        m_animator.SetFloat("Vertical Move", moveInput.y, 0.3f, Time.deltaTime);
+        m_animator.SetFloat("Horizontal Move", moveInput.x, 0.2f, Time.deltaTime);
     }
     private void TriggerAnim(string triggername)
     {

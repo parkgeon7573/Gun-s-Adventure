@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class playerInput : MonoBehaviour
 {
@@ -9,13 +10,10 @@ public class playerInput : MonoBehaviour
 
     public string attackButtonName = "Fire1";
     public string jumpButtonName = "Jump";
-    public string runButtonName = "Sprint";
     
     public Vector2 moveInput { get; private set; }
     public bool attack { get; private set; }
     public bool jump { get; private set; }
-    public float run { get; private set; }
-    public float runspeed { get; private set; }
 
 
     // Start is called before the first frame update
@@ -27,22 +25,15 @@ public class playerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if(GameManager.Instance != null && GameManager.Instance.isGameover)
-        {
-            moveInput = Vector2.zero;
-            fire = false;
-            jump = false;
-            return;
-        }*/
-
+        if(Input.GetKeyDown(KeyCode.I)) Managers.UI.ShowPopupUI<UI_Inven>();
+        if (Input.GetKeyDown(KeyCode.Escape)) Managers.UI.ClosePopupUI();
 
         moveInput = new Vector2(Input.GetAxisRaw(moveHorizontalAxisName), Input.GetAxisRaw(moveVerticalAxisName));
+        
         if (moveInput.sqrMagnitude > 1) moveInput = moveInput.normalized;
 
-        runspeed = (0.5f + Input.GetAxis(runButtonName)) / 1;
-
-        run = 0.5f + Input.GetAxis(runButtonName) * 0.5f;
         jump = Input.GetButtonDown(jumpButtonName);
-        attack = Input.GetButtonDown(attackButtonName);
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        else attack = Input.GetButtonDown(attackButtonName);
     }
 }
