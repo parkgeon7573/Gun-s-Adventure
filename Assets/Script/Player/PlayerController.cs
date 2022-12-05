@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float airControlPercent; //점프하는동안 플레이어가 원래속도의 몇퍼센트만큼 통제할수있는지
 
-
+    // 데코레이터패턴
     float currentVelocityY;
 
     public float currentSpeed => new Vector2(m_characterController.velocity.x, m_characterController.velocity.z).magnitude;
@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Die:
                 break;
             case PlayerState.Sowrd:
+
                 break;
         }
 
@@ -118,8 +119,11 @@ public class PlayerController : MonoBehaviour
 
     public void NormalAttack()
     {
-        if(m_playerInput.attack)
+        if (m_playerInput.attack)
+        {
             TriggerAnim("Attack1");
+            GameObject go = Managers.Resource.Instantiate("Effect/Sword1", transform);
+        }
     }
 
     private void MoveAnimation(Vector2 moveInput)

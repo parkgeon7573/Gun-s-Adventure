@@ -8,6 +8,7 @@ public class playerInput : MonoBehaviour
     public string moveHorizontalAxisName = "Horizontal";
     public string moveVerticalAxisName = "Vertical";
 
+
     public string attackButtonName = "Fire1";
     public string jumpButtonName = "Jump";
     
@@ -25,7 +26,9 @@ public class playerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I)) Managers.UI.ShowPopupUI<UI_Inven>();
+        if (Input.GetKeyDown(KeyCode.I))
+            Managers.UI.ShowPopupUI<UI_Inven>();
+
         if (Input.GetKeyDown(KeyCode.Escape)) Managers.UI.ClosePopupUI();
 
         moveInput = new Vector2(Input.GetAxisRaw(moveHorizontalAxisName), Input.GetAxisRaw(moveVerticalAxisName));

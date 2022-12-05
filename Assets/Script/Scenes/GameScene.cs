@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class GameScene : BaseScene
 {
-    void Start()
-    {
-        Init();
-    }
+   
     protected override void Init()
     {
         base.Init();
 
         SceneType = Define.Scene.Tutorial;
 
-        Managers.UI.ShowPopupUI<UI_Inven>();
+        //Managers.UI.ShowPopupUI<UI_Inven>();
     }
     public override void Clear()
     {

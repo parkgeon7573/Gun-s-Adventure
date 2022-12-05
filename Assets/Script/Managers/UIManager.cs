@@ -20,6 +20,11 @@ public class UIManager
         }
     }
 
+    public bool FindUI(UI_Popup go)
+    {
+        return _popupStack.Contains(go);
+    }
+
     public void SetCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
@@ -68,13 +73,29 @@ public class UIManager
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
-        T popup = Util.GetOrAddComponent<T>(go);
-        _popupStack.Push(popup);
+        bool isValid = true;
+        foreach(UI_Popup tmp in _popupStack)
+        {
+            if (tmp._name.Equals(name))
+            {
+                isValid = false;
+                break;
+            }
+        }
 
-        go.transform.SetParent(Root.transform);
+        if (isValid)
+        {
+            GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
+            T popup = Util.GetOrAddComponent<T>(go);
+            popup._name = name;
+            _popupStack.Push(popup);
 
-        return popup;
+            go.transform.SetParent(Root.transform);
+
+            return popup;
+        }
+        else
+            return null;
     }
 
     public void ClosePopupUI(UI_Popup popup)
@@ -106,5 +127,11 @@ public class UIManager
     {
         while (_popupStack.Count > 0)
             ClosePopupUI();
+    }
+
+    public void Clear()
+    {
+        CloseAllPopupUI();
+        _sceneUI = null;      
     }
 }
