@@ -9,12 +9,6 @@ public class UI_Inven : UI_Popup
         GridPanel
     }
 
-    public bool IsAlready()
-    {
-        if (Managers.UI.FindUI(this))
-            return false;
-        else return true;       
-    }
 
     public override void Init()
     {

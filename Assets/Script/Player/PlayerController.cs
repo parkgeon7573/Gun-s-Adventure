@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
         Die
     }
     PlayerState m_state;
-    PlayerStat m_playerstat;
+   
     CharacterController m_characterController;
     playerInput m_playerInput;
     Animator m_animator;
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     bool toggleCameraRotation;
+    [SerializeField]
+    float Speed = 10.0f;
     [SerializeField]
     float m_jumpVelocity = 10.0f;
     float smoothness = 10.0f;
@@ -61,7 +63,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_playerstat = gameObject.GetComponent<PlayerStat>();
         m_playerInput = GetComponent<playerInput>();
         m_animator = GetComponent<Animator>();
         m_characterController = GetComponent<CharacterController>();
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
         
     public void MoveUpdate(Vector2 moveInput) 
     {
-        var targetSpeed = m_playerstat.Speed * moveInput.magnitude;
+        var targetSpeed = Speed * moveInput.magnitude;
         var moveDirection = Vector3.Normalize(transform.forward * moveInput.y + transform.right * moveInput.x);
 
         currentVelocityY += Time.deltaTime * Physics.gravity.y * 5;
