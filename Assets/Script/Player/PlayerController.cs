@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    enum PlayerState
+    bool sDwon1;
+    bool sDwon2;
+    bool sDwon3;
+    bool isSwap;
+    GameObject equipWeapon;
+    int equipWeaponIndex = -1;
+    void GetInput()
     {
-        Normal,
-        Sowrd,
-        Die
+        sDwon1 = Input.GetKeyDown(KeyCode.Alpha1);
+        sDwon2 = Input.GetKeyDown(KeyCode.Alpha2);
     }
-    PlayerState m_state;
+
+    
    
     CharacterController m_characterController;
     playerInput m_playerInput;
@@ -18,6 +24,10 @@ public class PlayerController : MonoBehaviour
 
     Camera m_camera;
 
+    [SerializeField]
+    GameObject[] _weapons;
+    [SerializeField]
+    bool[] hasWeapons;
     [SerializeField]
     bool toggleCameraRotation;
     [SerializeField]
@@ -78,18 +88,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        switch (m_state)
-        {
-            case PlayerState.Normal:
-                NormalAttack();
-                break;
-            case PlayerState.Die:
-                break;
-            case PlayerState.Sowrd:
-
-                break;
-        }
+        GetInput();
+        Swap();
 
         Jump();
         MoveAnimation(m_playerInput.moveInput);
@@ -97,8 +97,10 @@ public class PlayerController : MonoBehaviour
         
     public void MoveUpdate(Vector2 moveInput) 
     {
+       
         var targetSpeed = Speed * moveInput.magnitude;
         var moveDirection = Vector3.Normalize(transform.forward * moveInput.y + transform.right * moveInput.x);
+        if (isSwap == true) moveDirection = Vector3.zero;
 
         currentVelocityY += Time.deltaTime * Physics.gravity.y * 5;
 
@@ -127,6 +129,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void GetWeapon(GameObject weapon)
+    {
+        if(weapon.tag == "Weapon")
+        {
+            Item item = weapon.GetComponent<Item>();
+            int weaponIndex = item.value;
+            hasWeapons[weaponIndex] = true;
+        }
+    }
+
     private void MoveAnimation(Vector2 moveInput)
     {
         m_animator.SetFloat("Vertical Move", moveInput.y, 0.3f, Time.deltaTime);
@@ -136,4 +148,50 @@ public class PlayerController : MonoBehaviour
     {
         m_animator.SetTrigger($"{triggername}");
     }
+
+    #region SwapWeapon
+    void Swap()
+    {
+        if (sDwon1 && (!hasWeapons[0] || equipWeaponIndex == 0))
+            return;
+        if (sDwon2 && (!hasWeapons[1] || equipWeaponIndex == 1))
+            return;
+
+
+        int weaponIndex = -1;
+        if (sDwon1) weaponIndex = 0;
+        if (sDwon2) weaponIndex = 1;
+
+        if (sDwon1 || sDwon2)
+        {
+            if (equipWeapon != null)
+                StartCoroutine("SetFalse", equipWeapon);
+
+            equipWeaponIndex = weaponIndex;
+            equipWeapon = _weapons[weaponIndex];
+            StartCoroutine("SetTrue", equipWeapon);
+
+            TriggerAnim("doSwap");
+            isSwap = true;
+            Invoke("SwapOut", 0.4f);
+        }
+    }
+
+    void SwapOut()
+    {
+        isSwap = false;
+    }
+
+    IEnumerator SetFalse(GameObject go)
+    {
+        yield return new WaitForSeconds(0.4f);
+        go.SetActive(false);
+    }
+    IEnumerator SetTrue(GameObject go)
+    {
+        yield return new WaitForSeconds(0.4f);
+        go.SetActive(true);
+    }
+    #endregion
+
 }

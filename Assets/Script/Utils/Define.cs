@@ -12,12 +12,11 @@ public class Define
         Monster,
     }
 
-    public enum State
+    public enum Item
     {
-        Die,
-        Moving,
-        Idle,
-        Skill,
+        Coin,
+        Heart,
+        Weapon
     }
 
     public enum Layer
