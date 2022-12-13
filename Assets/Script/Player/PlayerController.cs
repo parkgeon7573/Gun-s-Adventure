@@ -6,9 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     bool sDwon1;
     bool sDwon2;
-    bool sDwon3;
     bool isSwap;
-    GameObject equipWeapon;
+    Weapon equipWeapon;
     int equipWeaponIndex = -1;
     void GetInput()
     {
@@ -88,6 +87,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Attack();
+
         GetInput();
         Swap();
 
@@ -95,9 +96,24 @@ public class PlayerController : MonoBehaviour
         MoveAnimation(m_playerInput.moveInput);
     }
         
-    public void MoveUpdate(Vector2 moveInput) 
+
+
+
+    public void Attack()
     {
-       
+        if (equipWeapon == null)
+            return;
+        
+        if(m_playerInput.attack && !isSwap)
+        {
+            equipWeapon.Use(equipWeapon.weapontype);
+            TriggerAnim(equipWeapon.weapontype == Weapon.WeaponType.Sowrd ? "doSwing" : "doHand");
+        }
+    }
+    #region Movement
+    public void MoveUpdate(Vector2 moveInput)
+    {
+
         var targetSpeed = Speed * moveInput.magnitude;
         var moveDirection = Vector3.Normalize(transform.forward * moveInput.y + transform.right * moveInput.x);
         if (isSwap == true) moveDirection = Vector3.zero;
@@ -107,9 +123,9 @@ public class PlayerController : MonoBehaviour
         var velocity = moveDirection * targetSpeed + Vector3.up * currentVelocityY;
 
         m_characterController.Move(velocity * Time.deltaTime);
-        if (m_characterController.isGrounded) currentVelocityY = 0f;   
+        if (m_characterController.isGrounded) currentVelocityY = 0f;
     }
-    public void Jump() 
+    public void Jump()
     {
         if (m_playerInput.jump)
         {
@@ -119,26 +135,6 @@ public class PlayerController : MonoBehaviour
             TriggerAnim("Jump");
         }
     }
-
-    public void NormalAttack()
-    {
-        if (m_playerInput.attack)
-        {
-            TriggerAnim("Attack1");
-            GameObject go = Managers.Resource.Instantiate("Effect/Sword1", transform);
-        }
-    }
-
-    private void GetWeapon(GameObject weapon)
-    {
-        if(weapon.tag == "Weapon")
-        {
-            Item item = weapon.GetComponent<Item>();
-            int weaponIndex = item.value;
-            hasWeapons[weaponIndex] = true;
-        }
-    }
-
     private void MoveAnimation(Vector2 moveInput)
     {
         m_animator.SetFloat("Vertical Move", moveInput.y, 0.3f, Time.deltaTime);
@@ -148,6 +144,8 @@ public class PlayerController : MonoBehaviour
     {
         m_animator.SetTrigger($"{triggername}");
     }
+    #endregion
+
 
     #region SwapWeapon
     void Swap()
@@ -165,11 +163,11 @@ public class PlayerController : MonoBehaviour
         if (sDwon1 || sDwon2)
         {
             if (equipWeapon != null)
-                StartCoroutine("SetFalse", equipWeapon);
+                StartCoroutine("SetFalse", equipWeapon.gameObject);
 
             equipWeaponIndex = weaponIndex;
-            equipWeapon = _weapons[weaponIndex];
-            StartCoroutine("SetTrue", equipWeapon);
+            equipWeapon = _weapons[weaponIndex].GetComponent<Weapon>();
+            StartCoroutine("SetTrue", equipWeapon.gameObject);
 
             TriggerAnim("doSwap");
             isSwap = true;
@@ -193,5 +191,13 @@ public class PlayerController : MonoBehaviour
         go.SetActive(true);
     }
     #endregion
-
+    private void GetWeapon(GameObject weapon)
+    {
+        if (weapon.tag == "Weapon")
+        {
+            Item item = weapon.GetComponent<Item>();
+            int weaponIndex = item.value;
+            hasWeapons[weaponIndex] = true;
+        }
+    }
 }
