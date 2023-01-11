@@ -19,6 +19,12 @@ public class Define
         Weapon
     }
 
+    public enum WeaponType
+    {
+        Hand,
+        Sword
+    }
+
     public enum Layer
     {
         Monster = 8,
@@ -30,9 +36,9 @@ public class Define
     {
         Unknown,
         Login,
-        Lobby,
-        Tutorial,
         Game,
+        Boss,
+        
     }
 
     public enum Sound

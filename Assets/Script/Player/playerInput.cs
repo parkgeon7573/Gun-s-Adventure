@@ -3,25 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class playerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     public string moveHorizontalAxisName = "Horizontal";
     public string moveVerticalAxisName = "Vertical";
 
-
+    public string GetWeaponHand = "Hand";
+    public string GetWeaponSword = "Sword";
     public string attackButtonName = "Fire1";
     public string jumpButtonName = "Jump";
-    
-    public Vector2 moveInput { get; private set; }
-    public bool attack { get; private set; }
-    public bool jump { get; private set; }
 
+    public Vector2 MoveInput { get; private set; }
+    public bool Attack { get; private set; }
+    public bool Jump { get; private set; }
+    public bool Hand { get; private set; }
+    public bool Sword { get; private set; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -31,12 +28,14 @@ public class playerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape)) Managers.UI.ClosePopupUI();
 
-        moveInput = new Vector2(Input.GetAxisRaw(moveHorizontalAxisName), Input.GetAxisRaw(moveVerticalAxisName));
+        MoveInput = new Vector2(Input.GetAxisRaw(moveHorizontalAxisName), Input.GetAxisRaw(moveVerticalAxisName));
         
-        if (moveInput.sqrMagnitude > 1) moveInput = moveInput.normalized;
+        if (MoveInput.sqrMagnitude > 1) MoveInput = MoveInput.normalized;
 
-        jump = Input.GetButtonDown(jumpButtonName);
-        if (EventSystem.current.IsPointerOverGameObject()) return;
-        else attack = Input.GetButtonDown(attackButtonName);
+        Hand = Input.GetButtonDown(GetWeaponHand);
+        Sword = Input.GetButtonDown(GetWeaponSword);
+        Jump = Input.GetButtonDown(jumpButtonName);
+        if (!EventSystem.current.IsPointerOverGameObject()) 
+            Attack = Input.GetButtonDown(attackButtonName);
     }
 }

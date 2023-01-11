@@ -33,8 +33,8 @@ public class PoolManager
         {
             if (poolable == null)
                 return;
-
             poolable.transform.parent = Root;
+            poolable.transform.position = Root.position;
             poolable.gameObject.SetActive(false);
             poolable.IsUsing = false;
 
@@ -56,7 +56,32 @@ public class PoolManager
             if (parent == null)
                 poolable.transform.parent = Managers.Scene.CurrentScene.transform;
 
-            poolable.transform.parent = parent;
+            Vector3 originLocalPos = poolable.transform.localPosition;
+            poolable.transform.SetParent(parent);
+            poolable.transform.localPosition = originLocalPos;
+            poolable.IsUsing = true;
+
+            return poolable;
+        }
+        public Poolable Pop(Transform parent, Vector3 pos , Quaternion rot)
+        {
+            Poolable poolable;
+
+            if (_poolStack.Count > 0)
+                poolable = _poolStack.Pop();
+            else
+                poolable = Create();
+
+            poolable.gameObject.SetActive(true);
+
+            // DontDestroyOnLoad 해제 용도
+            if (parent == null)
+                poolable.transform.parent = Managers.Scene.CurrentScene.transform;
+
+            Vector3 originLocalPos = poolable.transform.localPosition;
+            poolable.transform.SetParent(parent);
+            poolable.transform.position = pos + Vector3.up * 1f;
+            poolable.transform.rotation = rot * poolable.transform.rotation;
             poolable.IsUsing = true;
 
             return poolable;
@@ -102,7 +127,7 @@ public class PoolManager
         if (_pool.ContainsKey(original.name) == false)
             CreatePool(original);
 
-        return _pool[original.name].Pop(parent);
+        return _pool[original.name].Pop(parent, parent.position, parent.rotation);
     }
 
     public GameObject GetOriginal(string name)

@@ -37,6 +37,14 @@ public class ResourceManager
         go.name = original.name;
         return go;
     }
+    public GameObject Instantiate(GameObject go, Transform parent = null)
+    {
+        if (go.GetComponent<Poolable>() != null)
+            return Managers.Pool.Pop(go, parent).gameObject;
+
+        return go;
+    }
+
 
     public void Destroy(GameObject go)
     {

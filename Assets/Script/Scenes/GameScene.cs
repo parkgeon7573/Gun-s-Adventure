@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameScene : BaseScene
 {
-    
-   
     protected override void Init()
     {
         base.Init();
@@ -13,8 +12,6 @@ public class GameScene : BaseScene
         SceneType = Define.Scene.Game;
 
         //Managers.UI.ShowPopupUI<UI_Inven>();
-        Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
-
 
     }
 
@@ -23,6 +20,8 @@ public class GameScene : BaseScene
 
     }
 
-    // Start is called before the first frame update
    
+
+    // Start is called before the first frame update
+
 }
