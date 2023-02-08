@@ -8,38 +8,38 @@ public class MonsterController : FSM<MonsterController>
 {
     //------------------------------
     [SerializeField]
-    WaypointController m_wayCtr;
+    protected WaypointController m_wayCtr;
     [SerializeField]
-    NPCController questController;
-    Animator m_animator;
-    NavMeshAgent m_navAgent;
-    SkeletonStat m_stat;
-    float stopDist = 0.5f;
+    protected NPCController questController;
+    protected Animator m_animator;
+    protected NavMeshAgent m_navAgent;
+    protected SkeletonStat m_SkelltonStat;
+    protected BossStat m_BossStat;
+    public float stopDist = 0.8f;
     public Transform _target;
-    [ HideInInspector ]
+    [HideInInspector]
     public Vector3 _targetPos = Vector3.zero;
-    //------------------------------
     public float _rotSpeed = 10f;
 
     public float _traceRange = 10f;
 
-    public float _attackRange = 0.8f;
-    public const float _AttackTime = 0.5f;
+    public float _attackRange = 3f;
+    public const float _AttackTime = 3f;
     public float _lastAttackTime = 0f;
     public int m_curWayPoint = 0;
-    //------------------------------
-    void Start()
+    public bool GetRanDom()
     {
-        InitState(this, SampleStatePatrol.Instance);
-        m_navAgent = GetComponent<NavMeshAgent>();
-        m_animator = GetComponent<Animator>();
-        m_stat = GetComponent<SkeletonStat>();
-        Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform); 
+        if (CompareTag("Boss"))
+        {
+            if (Random.value < 0.5)
+            {
+                return true;
+            }
+            else return false;
+        }
+        else return true;
     }
-    //------------------------------
-    void Update() { FSMUpdate(); }
-    //------------------------------
-    public Vector3 GetRandomPos()
+    public virtual Vector3 GetRandomPos()
     {
         if (m_curWayPoint > m_wayCtr.m_waypoints.Length - 1)
         {
@@ -47,35 +47,40 @@ public class MonsterController : FSM<MonsterController>
         }
         return m_wayCtr.m_waypoints[m_curWayPoint].transform.position;
 
-    }// public Vector3 GetRandomPos()
-    //------------------------------
-    private void OnTriggerEnter(Collider other) {
+    }
+    public virtual bool GetCurrentAnim(string animname)
+    {
+        if (m_animator.GetCurrentAnimatorStateInfo(0).IsName(animname))
+        {
+            return true;
+        }
+        else return false;
+    }
+    protected virtual void OnTriggerEnter(Collider other) {
         
         if( other.CompareTag("feature"))
-            ChangeState( SampleStatePatrol.Instance);
+            ChangeState(FSMPatrolState.Instance);
 
-    }// private void OnTriggerEnter(Collider other)
-    //------------------------------
-    public bool IsCloseToTarget( Vector3 targetPos, float range )
+    }
+    public virtual bool IsCloseToTarget( Vector3 targetPos, float range )
     {
         float dist = Vector3.SqrMagnitude(transform.position - targetPos);
 
         if (dist < range * range)
         {
-            return true;            
+           return true;
         }
         return false;
 
-    }// public bool IsCloseToTarget( Vector3 targetPos, float range )
-    //------------------------------
-    public void Move(Vector3 targetPos)
+    }
+    public virtual void Move(Vector3 targetPos)
     {
         m_navAgent.SetDestination(targetPos);
         Play("Walk");
         m_navAgent.stoppingDistance = stopDist;
     }
-    //------------------------------
-    public void Rotate( Vector3 targetPos )
+   
+    public virtual void Rotate( Vector3 targetPos )
     {
         Vector3 dir = targetPos - transform.position;
         dir = dir.normalized;
@@ -84,55 +89,46 @@ public class MonsterController : FSM<MonsterController>
         Quaternion targetRot = Quaternion.AngleAxis(angle, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, _rotSpeed * Time.deltaTime);
 
-    }// public void Rotate( Vector3 targetPos )
-    //------------------------------
-    public void Play(string name)
+    }
+    public virtual void Play(string name)
     {
-        m_animator.SetTrigger(name);
+        m_animator.Play(name);
         
     }
-    public void DrawRay( float range, Color col )
+    public virtual void Settrigger(string name)
+    {
+        m_animator.SetTrigger(name);
+    }
+    public virtual void Stop()
+    {
+        m_navAgent.ResetPath();
+    }
+    public virtual void DrawRay( float range, Color col )
     {
         var dir = (_target.transform.position - transform.position).normalized;
         dir.y = 0f;
         Debug.DrawRay( transform.position + Vector3.up * 0.6f, dir * range, col);
     }
 
-    public void SetDamage(SkillData skillData, int damage)
-    {
-        float Damage = skillData.Damage + damage - m_stat.Defense;
-        m_stat.Hp -= Damage;
-        
-        if (m_stat.Hp <= 0)
-        {
-            if (CurrentState == PreviousState)
-            {
-                return;
-            }
-            else
-            {
-                ChangeState(SampleStateDie.Instance);
-                questController.isSuccess = true;
-                questController.monsterDie++;
-            }
-           
-        }            
-    }
+    public virtual void SetDamage(SkillData skillData, int damage) { }
+   
 
     #region Unity Animation Event Methods
 
     void AnimEvent_SkeletonAtk()
     {
         PlayerController player = _target.GetComponent<PlayerController>();
-        player.SetDamage(m_stat.Attack);
+        player.SetDamage(m_SkelltonStat.Attack);
     }
-    void AnimEvent_Foot()
+    void AnimEvent_BossAtk()
     {
-
+        PlayerController player = _target.GetComponent<PlayerController>();
+        player.SetDamage(m_BossStat.Attack);
+        player.DamageAnim();
     }
     void AnimEvent_Die()
     {
-        this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
     }
     #endregion
 }

@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class GameScene : BaseScene
 {
+    [SerializeField]
+    GameObject m_loadingObj;
     protected override void Init()
     {
         base.Init();
 
-        SceneType = Define.Scene.Game;
-
+        m_loadingObj.SetActive(false);
         //Managers.UI.ShowPopupUI<UI_Inven>();
 
+    }
+    public override AsyncOperation GoNextScene(string name)
+    {
+        return base.GoNextScene(name);
     }
 
     public override void Clear()

@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour, IUpdateableObject
+{    
     private readonly static int Sword1 = Animator.StringToHash("Sword1");
     private readonly static int Sword2 = Animator.StringToHash("Sword2");
     private readonly static int Sword3 = Animator.StringToHash("Sword3");
     private readonly static int Hand1 = Animator.StringToHash("Hand1");
     private readonly static int Hand2 = Animator.StringToHash("Hand2");
     private readonly static int Hand3 = Animator.StringToHash("Hand3");
-    PlayerAnimationEvent m_animEvt;
+
     Animator m_animator;
     PlayerStat m_stat;
     Weapon equipWeapon;
@@ -19,11 +19,17 @@ public class PlayerMovement : MonoBehaviour
     PlayerController m_playerContorller;
     AttackAreaUnitFind[] m_attackArea;
     [SerializeField]
+    QuestManager questManager;
+    TalkManager talkManager;
+    [SerializeField]
+    Portal portal;
+    [SerializeField]
     GameObject[] m_SwordEffect;
     [SerializeField]
     GameObject[] _weapons;
     [SerializeField]
     GameObject m_attackAreaObj;
+
 
     public float CurrentSpeed => new Vector2(m_characterController.velocity.x, m_characterController.velocity.z).magnitude;
 
@@ -63,6 +69,24 @@ public class PlayerMovement : MonoBehaviour
         }
         else return false;
     }
+    private void OnEnable()
+    {
+        UpdateManager.Instance.RegisterUpdateablObject(this);
+    }
+
+    private void OnDisable()
+    {
+        if (UpdateManager.Instance != null)
+            UpdateManager.Instance.DeregisterUpdateableObject(this);
+    }
+
+    public void OnUpdate()
+    {
+        MoveAnimation(m_playerInput.MoveInput);
+        Attack();
+        Swap();
+        Jump();
+    }
     void Start()
     {
         InitSkilTavle();
@@ -73,6 +97,13 @@ public class PlayerMovement : MonoBehaviour
         m_playerInput = GetComponent<PlayerInput>();
         m_playerContorller = GetComponent<PlayerController>();
         m_characterController = GetComponent<CharacterController>();
+        talkManager = GameObject.Find("TalkManager").GetComponent<TalkManager>();
+        m_characterController.enabled = false;
+        if (questManager == null)
+            m_characterController.enabled = true;
+        else if (talkManager.BossDie == true)
+            transform.position = portal.transform.position;
+        m_characterController.enabled = true;
     }
     private void FixedUpdate()
     {
@@ -118,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
             var velocity = moveDirection * m_stat.Speed + Vector3.up * currentVelocityY;
 
+
             m_characterController.Move(velocity * Time.deltaTime);
             if (m_characterController.isGrounded) currentVelocityY = 0f;
         }
@@ -140,19 +172,12 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     void InitSkilTavle()
     {
-        m_skillTable.Add(Sword1, new SkillData() { attackArea = 0, knockbackDist = 0.3f, Effet = 0, Damage = 20 });
-        m_skillTable.Add(Sword2, new SkillData() { attackArea = 1, knockbackDist = 0.5f, Effet = 1, Damage = 30 });
-        m_skillTable.Add(Sword3, new SkillData() { attackArea = 2, knockbackDist = 1f, Effet = 1, Damage = 40 });
-        m_skillTable.Add(Hand1, new SkillData() { attackArea = 3, knockbackDist = 0.1f, Damage = 10 });
+        m_skillTable.Add(Sword1, new SkillData() { attackArea = 0, knockbackDist = 0.3f, Effet = 0, Damage = 15 });
+        m_skillTable.Add(Sword2, new SkillData() { attackArea = 1, knockbackDist = 0.5f, Effet = 1, Damage = 20 });
+        m_skillTable.Add(Sword3, new SkillData() { attackArea = 2, knockbackDist = 1f, Effet = 1, Damage = 35 });
+        m_skillTable.Add(Hand1, new SkillData() { attackArea = 3, knockbackDist = 0.1f, Damage = 80 });
         m_skillTable.Add(Hand2, new SkillData() { attackArea = 3, knockbackDist = 0.1f, Damage = 15 });
         m_skillTable.Add(Hand3, new SkillData() { attackArea = 4, knockbackDist = 0.1f, Damage = 25 });
-    }
-    void Update()
-    {
-        MoveAnimation(m_playerInput.MoveInput);
-        Attack();
-        Swap();
-        Jump();
     }
 
     #region SwapWeapon
@@ -187,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isSwap = false;
     }
-    void GetWeapon(GameObject weapon)
+    public void GetWeapon(GameObject weapon)
     {
         if (weapon.CompareTag("Weapon"))
         {
@@ -227,12 +252,17 @@ public class PlayerMovement : MonoBehaviour
         var unitList = m_attackArea[skillData.attackArea].m_unitList;
         for (int i = 0; i < unitList.Count; i++)
         {
-            var monster = unitList[i].GetComponent<MonsterController>();
-            if (monster != null)
+            var e = unitList[i].GetComponent<MonsterController>();
+            if (e != null && e.isActiveAndEnabled)
             {
-                monster.SetDamage(skillData, m_stat.Attack);
+                Managers.Sound.Play("Effect/Stab 22_1", Define.Sound.Effect);
+                e.SetDamage(skillData, m_stat.Attack);
             }
         }
+    }
+    void AnimEvent_Swing()
+    {
+        Managers.Sound.Play("Effect/Swing", Define.Sound.Effect);
     }
     void AnimEvent_SwordAttack()
     {
@@ -241,14 +271,18 @@ public class PlayerMovement : MonoBehaviour
             return;
         var unitList = m_attackArea[skillData.attackArea].m_unitList;
         GameObject go = Managers.Resource.Instantiate(m_SwordEffect[m_comboIndex], this.transform);
+        
         go.transform.rotation = go.transform.rotation;
         StartCoroutine(DestroyObj(go));
         for (int i = 0; i < unitList.Count; i++)
         {
-            var monster = unitList[i].GetComponent<MonsterController>();
-            if (monster != null)
+            var boss = unitList[i].GetComponent<BossController>();
+            var e = unitList[i].GetComponent<MonsterController>();
+            if (e != null && e.isActiveAndEnabled || boss != null)
             {
-                monster.SetDamage(skillData, m_stat.Attack);
+                boss.SetDamage(skillData, m_stat.Attack);
+                Managers.Sound.Play("Effect/Stab 22_1", Define.Sound.Effect);
+                e.SetDamage(skillData, m_stat.Attack);
             }
         }
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1061522594985898503}
   - component: {fileID: 1245458787041556967}
   - component: {fileID: 6640254098055169314}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: SwrodArea5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407172858446814038}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 2.5}
@@ -420,7 +420,8 @@ GameObject:
   - component: {fileID: 4911988959620345767}
   - component: {fileID: 4911988959620345784}
   - component: {fileID: 4911988959620345785}
-  m_Layer: 6
+  - component: {fileID: 1792400940}
+  m_Layer: 5
   m_Name: SwrodArea2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,11 +466,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911988959620345787}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3, y: 1, z: 3}
+  m_Center: {x: 0, y: 1, z: 1.8}
 --- !u!114 &4911988959620345785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +484,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_unitList: []
+--- !u!114 &1792400940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911988959620345787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712785fd29f432e4587288db5c050d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
 --- !u!1 &4911988959629856042
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +509,7 @@ GameObject:
   - component: {fileID: 4911988959629856086}
   - component: {fileID: 4911988959629856087}
   - component: {fileID: 4911988959629856040}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: SwrodArea1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -540,7 +554,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911988959629856042}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3, y: 1, z: 3}
@@ -567,7 +581,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4911988959636836986}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,7 +687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4911988959687089739
 Transform:
   m_ObjectHideFlags: 0
@@ -3233,7 +3247,7 @@ GameObject:
   - component: {fileID: 4911988961105280628}
   - component: {fileID: 4911988961105280629}
   - component: {fileID: 4911988961105280630}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: SwrodArea3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3278,11 +3292,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911988961105280584}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 5, y: 3, z: 5}
+  m_Center: {x: 0, y: 1, z: 2.3}
 --- !u!114 &4911988961105280630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3598,6 +3612,7 @@ GameObject:
   - component: {fileID: 4912846956033802411}
   - component: {fileID: 4912846956033802413}
   - component: {fileID: 4912846956033802412}
+  - component: {fileID: 543025551}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3614,7 +3629,7 @@ Transform:
   m_GameObject: {fileID: 4912846956033802401}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.57, y: 8.071, z: 30.39}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4911988961031913127}
   - {fileID: 4911988960504965548}
@@ -3643,7 +3658,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 6416222436dcf014ba11204700504b1c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -3674,7 +3689,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4912846956033802401}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -3793,14 +3808,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ccf7841ff2f7a41b25f4f434432502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_attackAreaObj: {fileID: 0}
-  m_SwordEffect: []
-  _weapons:
-  - {fileID: 4911988959427373012}
-  - {fileID: 4911988959687089728}
-  hasWeapons: 0101
   toggleCameraRotation: 0
-  Speed: 10
+  isTalk: 0
+  gamePanel: {fileID: 0}
+  healthText: {fileID: 0}
+  weapon1Img: {fileID: 0}
+  weapon2Img: {fileID: 0}
 --- !u!114 &4912846956033802412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3822,6 +3835,28 @@ MonoBehaviour:
   _jumpVelocity: 0
   _exp: 0
   _gold: 0
+--- !u!114 &543025551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912846956033802401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b1a9b6fe8242a489a0f7f722764775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SwordEffect:
+  - {fileID: 1872147318604286, guid: f9a12dac68bd7514dbecc6007e26c106, type: 3}
+  - {fileID: 1872147318604286, guid: 47c6141583e1be44db70c15d4cb5087a, type: 3}
+  - {fileID: 1872147318604286, guid: f0512f6d341994747b45a7a86230992f, type: 3}
+  _weapons:
+  - {fileID: 4911988959427373012}
+  - {fileID: 4911988959687089728}
+  m_attackAreaObj: {fileID: 4911988959636836987}
+  hasWeapons: 0101
+  Speed: 10
 --- !u!1 &7296399672952642089
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,7 +3869,7 @@ GameObject:
   - component: {fileID: 3713946763548351917}
   - component: {fileID: 4015404778708015086}
   - component: {fileID: 5734913762731475524}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: SwrodArea4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3879,7 +3914,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7296399672952642089}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 2}

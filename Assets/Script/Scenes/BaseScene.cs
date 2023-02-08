@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 
 public abstract class BaseScene : MonoBehaviour
 {
-    public Define.Scene SceneType { get; protected set; } = Define.Scene.Unknown;
-
+    AsyncOperation m_loadingInfo;
+    public virtual AsyncOperation GoNextScene(string name)
+    {
+        return m_loadingInfo = SceneManager.LoadSceneAsync(name);
+    }
     void Awake()
     {
         Init();

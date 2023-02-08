@@ -9,12 +9,10 @@ public class LoginScene : BaseScene
     {
         base.Init();
 
-        SceneType = Define.Scene.Login;
-
     }
-    public void GameStart()
+    public void MoveScene()
     {
-        Managers.Scene.LoadScene(Define.Scene.Game);
+        SceneManager.LoadScene("Game");
     }
     public override void Clear()
     {

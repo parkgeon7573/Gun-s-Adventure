@@ -7,14 +7,14 @@ public class AttackAreaUnitFind : MonoBehaviour
     public List<GameObject> m_unitList = new List<GameObject>();
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Monster") || other.CompareTag("Boss"))
         {
             m_unitList.Add(other.gameObject);
         }
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Monster") || other.CompareTag("Boss"))
         {
             m_unitList.Remove(other.gameObject);
         }

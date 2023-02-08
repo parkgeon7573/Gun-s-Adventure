@@ -53,8 +53,8 @@ public class PoolManager
             poolable.gameObject.SetActive(true);
 
             // DontDestroyOnLoad 해제 용도
-            if (parent == null)
-                poolable.transform.parent = Managers.Scene.CurrentScene.transform;
+            /*if (parent == null)
+                poolable.transform.parent = Managers.Scene.CurrentScene.transform;*/
 
             Vector3 originLocalPos = poolable.transform.localPosition;
             poolable.transform.SetParent(parent);
@@ -73,10 +73,6 @@ public class PoolManager
                 poolable = Create();
 
             poolable.gameObject.SetActive(true);
-
-            // DontDestroyOnLoad 해제 용도
-            if (parent == null)
-                poolable.transform.parent = Managers.Scene.CurrentScene.transform;
 
             Vector3 originLocalPos = poolable.transform.localPosition;
             poolable.transform.SetParent(parent);

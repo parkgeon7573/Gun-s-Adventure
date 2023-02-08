@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour, IUpdateableObject
 {
     public string moveHorizontalAxisName = "Horizontal";
     public string moveVerticalAxisName = "Vertical";
@@ -20,22 +20,28 @@ public class PlayerInput : MonoBehaviour
     public bool Sword { get; private set; }
 
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-            Managers.UI.ShowPopupUI<UI_Inven>();
+        UpdateManager.Instance.RegisterUpdateablObject(this);
+    }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) Managers.UI.ClosePopupUI();
+    private void OnDisable()
+    {
+        if (UpdateManager.Instance != null)
+            UpdateManager.Instance.DeregisterUpdateableObject(this);
+    }
+
+    public void OnUpdate()
+    {
 
         MoveInput = new Vector2(Input.GetAxisRaw(moveHorizontalAxisName), Input.GetAxisRaw(moveVerticalAxisName));
-        
+
         if (MoveInput.sqrMagnitude > 1) MoveInput = MoveInput.normalized;
 
         Hand = Input.GetButtonDown(GetWeaponHand);
         Sword = Input.GetButtonDown(GetWeaponSword);
         Jump = Input.GetButtonDown(jumpButtonName);
-        if (!EventSystem.current.IsPointerOverGameObject()) 
+        if (!EventSystem.current.IsPointerOverGameObject())
             Attack = Input.GetButtonDown(attackButtonName);
     }
 }

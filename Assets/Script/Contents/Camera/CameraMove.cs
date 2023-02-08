@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove : MonoBehaviour
+public class CameraMove : MonoBehaviour, IUpdateableObject
 {
     
     [SerializeField] //카메라방향
@@ -22,7 +22,7 @@ public class CameraMove : MonoBehaviour
     [SerializeField]  //카메라와 플레이어 최소거리
     float minDistance;
     [SerializeField]  //카메라와 플레이어 최대거리
-    float maxDistance;
+    float maxDistance = 9;
     [SerializeField]  //최종거리
     float finalDistance;
     [SerializeField] // 카메라 부드러움정도
@@ -30,7 +30,16 @@ public class CameraMove : MonoBehaviour
     float rotX;  //마우스 인풋받을변수
     float rotY;
 
+    private void OnEnable()
+    {
+        UpdateManager.Instance.RegisterUpdateablObject(this);
+    }
 
+    private void OnDisable()
+    {
+        if (UpdateManager.Instance != null)
+            UpdateManager.Instance.DeregisterUpdateableObject(this);
+    }
     void MouseInput()
     {
         rotX += Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
@@ -51,9 +60,15 @@ public class CameraMove : MonoBehaviour
        //Debug.DrawRay(transform.position, finalDir, Color.red, 100.0f) ;
         if (Physics.Raycast(transform.position, finalDir, out hit, Mathf.Infinity, ~layerMask))
         {
-            finalDistance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
+            if(hit.collider.tag == "feature")
+            {
+                //finalDistance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
+                finalDistance = maxDistance;
+            }
         }
         else finalDistance = maxDistance;
+        if (finalDistance > 9)
+            finalDistance = 9;
         realCamera.localPosition = Vector3.Lerp(realCamera.localPosition, m_Cameradir * finalDistance, Time.deltaTime * smoothness);
     } 
 
@@ -72,10 +87,7 @@ public class CameraMove : MonoBehaviour
         //Cursor.visible = false;
     }
 
-
-
-    // Update is called once per frame
-    void Update()
+    public void OnUpdate()
     {
         MouseInput();
         MoveCamera();

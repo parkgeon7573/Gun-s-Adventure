@@ -9,7 +9,7 @@ public class Define
     {
         Unknown,
         Player,
-        Monster,
+        e,
     }
 
     public enum Item
@@ -27,19 +27,11 @@ public class Define
 
     public enum Layer
     {
-        Monster = 8,
+        e = 8,
         Ground = 9,
         Block = 10,
     }
 
-    public enum Scene
-    {
-        Unknown,
-        Login,
-        Game,
-        Boss,
-        
-    }
 
     public enum Sound
     {

@@ -1,0 +1,221 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.40f1 (ba48d4efcef1) revision 12208340'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19044) 64bit Professional' Language: 'ko' Physical Memory: 16057 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.40f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/82104/Desktop/portfolio
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+50042
+Successfully changed project path to: C:/Users/82104/Desktop/portfolio
+C:/Users/82104/Desktop/portfolio
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 128.28 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.40f1 (ba48d4efcef1)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.40f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/82104/Desktop/portfolio/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) Iris(R) Xe Graphics (ID=0x9a49)
+    Vendor:   
+    VRAM:     8028 MB
+    Driver:   27.20.100.9415
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.40f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.40f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.40f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56028
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.40f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005366 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 129.41 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.087 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1087ms)
+		BeginReloadAssembly (110ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (813ms)
+			LoadAssemblies (107ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (228ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (72ms)
+			SetupLoadedEditorAssemblies (315ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (11ms)
+				SetLoadedEditorAssemblies (2ms)
+				RefreshPlugins (130ms)
+				BeforeProcessingInitializeOnLoad (24ms)
+				ProcessInitializeOnLoadAttributes (112ms)
+				ProcessInitializeOnLoadMethodAttributes (36ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.010262 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.65 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.511 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1513ms)
+		BeginReloadAssembly (311ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (10ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (42ms)
+		EndReloadAssembly (1076ms)
+			LoadAssemblies (174ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (328ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (74ms)
+			SetupLoadedEditorAssemblies (447ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (122ms)
+				ProcessInitializeOnLoadAttributes (286ms)
+				ProcessInitializeOnLoadMethodAttributes (25ms)
+				AfterProcessingInitializeOnLoad (8ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (2ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1637 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 78.2 MB.
+System memory in use after: 78.3 MB.
+
+Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 2082.
+Total: 4.254500 ms (FindLiveObjects: 0.094300 ms CreateObjectMapping: 0.034500 ms MarkObjects: 4.022000 ms  DeleteObjects: 0.102400 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/Resources/Sounds/Footstep(Snow and Grass)
+  artifactKey: Guid(2bba8ad9d1aed544a9aa21718daa4590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sounds/Footstep(Snow and Grass) using Guid(2bba8ad9d1aed544a9aa21718daa4590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93e748b763f0e18cc286ca508eed6766') in 0.011704 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000804 seconds.
+  path: Assets/Resources/Sounds/Footstep(Snow and Grass)/StepsLoop
+  artifactKey: Guid(106e0471865359c4ea47a1c80ea9e74a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sounds/Footstep(Snow and Grass)/StepsLoop using Guid(106e0471865359c4ea47a1c80ea9e74a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4a9c42e8e99bad3b67905d5e0944a59') in 0.008023 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.721520 seconds.
+  path: Assets/Resources/Sounds/Footstep(Snow and Grass)/StepsLoop/grass/walking/walking-1.wav
+  artifactKey: Guid(a028be27b3c28494592f11a6ae991669) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sounds/Footstep(Snow and Grass)/StepsLoop/grass/walking/walking-1.wav using Guid(a028be27b3c28494592f11a6ae991669) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa740dc20f4e26504306ba7125f63fe8') in 0.131671 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 74.125345 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/2 Handed Warrior Mecanim Animation Pack/Animation Controller/2Handed Warrior Animation Controller.controller
+  artifactKey: Guid(eedd95950d7c15e4eb7d88267e566406) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/2 Handed Warrior Mecanim Animation Pack/Animation Controller/2Handed Warrior Animation Controller.controller using Guid(eedd95950d7c15e4eb7d88267e566406) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c0d8e5c08cc3ff722b0f304cdc913ab') in 0.024099 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.303338 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/2 Handed Warrior Mecanim Animation Pack/Animations/2Handed@Attack1.FBX
+  artifactKey: Guid(dbbdcfdc751ca1146932bd6bc3dda730) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/2 Handed Warrior Mecanim Animation Pack/Animations/2Handed@Attack1.FBX using Guid(dbbdcfdc751ca1146932bd6bc3dda730) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fbf30ddf157d50c750c0af85c329144d') in 0.064065 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.724964 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/2 Handed Warrior Mecanim Animation Pack/Animations/2Handed@Run.FBX
+  artifactKey: Guid(f8a7c8447d8c15740964c9bfcb761d70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/2 Handed Warrior Mecanim Animation Pack/Animations/2Handed@Run.FBX using Guid(f8a7c8447d8c15740964c9bfcb761d70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a03c384325b6b10b6773b359023aa820') in 0.014712 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.541092 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/2 Handed Warrior Mecanim Animation Pack/Animations/2Handed@Walk.FBX
+  artifactKey: Guid(6aa2008e4fe28b443b5c93d5b9f768d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/2 Handed Warrior Mecanim Animation Pack/Animations/2Handed@Walk.FBX using Guid(6aa2008e4fe28b443b5c93d5b9f768d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67b4989eb226a33ca285242f183407bb') in 0.012600 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 16.887300 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Archer Warrior Mecanim Animation Pack/Animations/Archer@Run.FBX
+  artifactKey: Guid(4ab1fdda55b6ec741be4e45123b61c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Archer Warrior Mecanim Animation Pack/Animations/Archer@Run.FBX using Guid(4ab1fdda55b6ec741be4e45123b61c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd390dbaa7d667607b9483283acb133e') in 0.012051 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 18.080857 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Attack1.FBX
+  artifactKey: Guid(ecf1c9844e13bbe48a8729667efdc143) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Attack1.FBX using Guid(ecf1c9844e13bbe48a8729667efdc143) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0eacdbc5ce9ab23400e9644fc663cda') in 0.013067 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 13.641372 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Fall.FBX
+  artifactKey: Guid(8ac171a4127ef3d4c888745340c1274f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Fall.FBX using Guid(8ac171a4127ef3d4c888745340c1274f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '678e1ea3c8c26b80b535bb7b8303035f') in 0.012659 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.779653 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Idle.FBX
+  artifactKey: Guid(be797334aa848784d838447aa3d3a0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Idle.FBX using Guid(be797334aa848784d838447aa3d3a0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f5ca3e4d5cff586bd8dc3c3156b4b84') in 0.014961 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.645797 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Jump.FBX
+  artifactKey: Guid(ccc3fd03b3e3f064ca25dcd069b704a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Jump.FBX using Guid(ccc3fd03b3e3f064ca25dcd069b704a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af3ddffc490df7225e89bf67845bce55') in 0.012166 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.400016 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Run.FBX
+  artifactKey: Guid(d9d469953be3eeb468fe9ec060467ded) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Run.FBX using Guid(d9d469953be3eeb468fe9ec060467ded) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c2eb2e8bf09394fad10a46a6de9db70') in 0.014155 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.331686 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Walk.FBX
+  artifactKey: Guid(73343089e4172784b94f00a97fb84f21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@Walk.FBX using Guid(73343089e4172784b94f00a97fb84f21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40f2a2965bf15e807b69b00b79116a69') in 0.012314 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.323462 seconds.
+  path: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@WalkSlow.FBX
+  artifactKey: Guid(f8a66c15787dfb944987231e40cb524c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Mage Warrior Mecanim Animation Pack/Animations/Mage@WalkSlow.FBX using Guid(f8a66c15787dfb944987231e40cb524c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8e392357f55947ffd0d88af8cde93e6') in 0.013229 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

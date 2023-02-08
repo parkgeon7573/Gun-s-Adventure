@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Managers : MonoBehaviour
 {
@@ -8,15 +9,14 @@ public class Managers : MonoBehaviour
     static Managers Instance { get { Init(); return s_instance; } }
 
     PoolManager _pool = new PoolManager();
-    SceneManagerEx _scene = new SceneManagerEx();
     SoundManager _sound = new SoundManager();
     UIManager _ui = new UIManager();
 
     ResourceManager _resource = new ResourceManager();
+    
 
     public static PoolManager Pool { get { return Instance._pool; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
-    public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static SoundManager Sound { get { return Instance._sound; } }
     public static UIManager UI { get { return Instance._ui; } }
     // Start is called before the first frame update
@@ -24,7 +24,6 @@ public class Managers : MonoBehaviour
     {
         Init();
     }
-
     static void Init()
     {
         if (s_instance == null)
@@ -47,7 +46,6 @@ public class Managers : MonoBehaviour
     {
         Sound.Clear();
         UI.Clear();
-        Scene.Clear();
         Pool.Clear();
     }
 }

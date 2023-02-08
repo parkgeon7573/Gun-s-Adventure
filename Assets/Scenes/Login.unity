@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 564992909}
         m_TargetAssemblyTypeName: LoginScene, Assembly-CSharp
-        m_MethodName: GameStart
+        m_MethodName: MoveScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -26,6 +26,10 @@ public class UI_HPBar : UI_Base
 
         float ratio = _stat.Hp / (float)_stat.MaxHp;
         SetHpRatio(ratio);
+        if(ratio < 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void SetHpRatio(float ratio)

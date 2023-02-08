@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6713334432656579880}
   - component: {fileID: 6713334432656579883}
   - component: {fileID: 6713334432656579882}
-  - component: {fileID: 6713334432656579885}
+  - component: {fileID: 1204919867911865725}
   m_Layer: 7
   m_Name: Monster
   m_TagString: Monster
@@ -188,7 +188,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6713334432656579885
+--- !u!114 &1204919867911865725
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,17 +197,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6713334432656579884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea511761cb6b0d4db97e40dc44d041a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dc45ffa59cc4f94e957747e311931d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_wayCtr: {fileID: 0}
+  questController: {fileID: 0}
+  stopDist: 0.8
   _target: {fileID: 0}
   _targetPos: {x: 0, y: 0, z: 0}
   _rotSpeed: 10
-  _traceRange: 5
-  _attackRange: 2
+  _traceRange: 10
+  _attackRange: 1
   _lastAttackTime: 0
-  _hp: 5
   m_curWayPoint: 0
 --- !u!1 &7788969433188450013
 GameObject:

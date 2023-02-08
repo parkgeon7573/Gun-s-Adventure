@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TweenMove : MonoBehaviour
+public class TweenMove : MonoBehaviour,IUpdateableObject
 {
     [SerializeField]
     AnimationCurve m_curve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
@@ -15,6 +15,16 @@ public class TweenMove : MonoBehaviour
     Vector3 m_to;
 
     bool m_isStart;
+    private void OnEnable()
+    {
+        UpdateManager.Instance.RegisterUpdateablObject(this);
+    }
+
+    private void OnDisable()
+    {
+        if (UpdateManager.Instance != null)
+            UpdateManager.Instance.DeregisterUpdateableObject(this);
+    }
 
     public void Play()
     {
@@ -29,18 +39,12 @@ public class TweenMove : MonoBehaviour
         m_duration = duration;
         m_time = 0f;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void OnUpdate()
     {
         if (m_isStart)
         {
-            var value = m_curve.Evaluate(m_time);            
+            var value = m_curve.Evaluate(m_time);
             transform.position = m_from * (1f - value) + m_to * value;
             m_time += Time.deltaTime / m_duration;
             if (m_time > 1)
