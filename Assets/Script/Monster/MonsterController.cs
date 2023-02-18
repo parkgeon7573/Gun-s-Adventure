@@ -110,7 +110,7 @@ public class MonsterController : FSM<MonsterController>
         Debug.DrawRay( transform.position + Vector3.up * 0.6f, dir * range, col);
     }
 
-    public virtual void SetDamage(SkillData skillData, int damage) { }
+    public virtual void SetDamage(int damage, SkillData skillData = null) { }
    
 
     #region Unity Animation Event Methods
@@ -122,13 +122,14 @@ public class MonsterController : FSM<MonsterController>
     }
     void AnimEvent_BossAtk()
     {
+        Managers.Sound.Play("Whoosh/Whoosh 14_5", Define.Sound.Effect);
         PlayerController player = _target.GetComponent<PlayerController>();
         player.SetDamage(m_BossStat.Attack);
         player.DamageAnim();
     }
     void AnimEvent_Die()
     {
-            gameObject.SetActive(false);
+        Destroy(gameObject);
     }
     #endregion
 }

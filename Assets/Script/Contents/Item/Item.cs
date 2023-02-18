@@ -10,16 +10,21 @@ public class Item
 
     public int value;
     public string itemName;
+    public int itemCost;
     public Sprite itemImage;
 
     public List<ItemEffect> efts;
     public bool Use()
     {
         bool isUsed = false;
-        foreach(ItemEffect eft in efts)
+        if (efts != null)
         {
-            isUsed = eft.ExecuteRole();
+            foreach (ItemEffect eft in efts)
+            {
+                isUsed = eft.ExecuteRole();
+            }
         }
+        
 
         return isUsed;
     }

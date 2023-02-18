@@ -9,14 +9,14 @@ public class BossScene : BaseScene
     {
         base.Init();
 
-
+        Managers.Sound.Play("BGM/BGM", Define.Sound.Bgm);
         //Managers.UI.ShowPopupUI<UI_Inven>();
 
     }
 
     public override void Clear()
     {
-
+        Managers.Sound.Clear();
     }
 
 

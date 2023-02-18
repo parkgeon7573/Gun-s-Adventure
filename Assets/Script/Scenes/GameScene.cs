@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameScene : BaseScene
 {
     [SerializeField]
+    WaypointController m_wayCtr;
+    [SerializeField]
     GameObject m_loadingObj;
     protected override void Init()
     {
@@ -23,8 +25,22 @@ public class GameScene : BaseScene
     {
 
     }
-
-   
+    public void CreateMonster()
+    {
+        StartCoroutine(DelaycreateMonster());
+    }
+    IEnumerator DelaycreateMonster()
+    {
+        yield return new WaitForSeconds(3f);
+        Managers.Resource.Instantiate("Charactor/Monster", m_wayCtr.transform);
+    }
+    private void Start()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            CreateMonster();
+        }
+    }
 
     // Start is called before the first frame update
 

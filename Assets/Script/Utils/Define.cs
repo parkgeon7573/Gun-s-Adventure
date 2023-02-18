@@ -22,7 +22,8 @@ public class Define
     public enum WeaponType
     {
         Hand,
-        Sword
+        Sword,
+        Mace
     }
 
     public enum Layer

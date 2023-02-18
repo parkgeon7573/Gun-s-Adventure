@@ -11,8 +11,11 @@ public class QuestManager : MonoBehaviour
     [SerializeField]
     PlayerMovement player;
     PlayerController m_player;
+    Inventory playerInven;
     [SerializeField]
     NPCController questController;
+    [SerializeField]
+    Item item;
     Dictionary<int, QuestData> questList;
     // Start is called before the first frame update
     void Awake()
@@ -21,6 +24,10 @@ public class QuestManager : MonoBehaviour
         m_portal.gameObject.SetActive(false);
         questList = new Dictionary<int, QuestData>();
         GenerateData();
+    }
+    private void Start()
+    {
+        playerInven = m_player.GetComponentInChildren<Inventory>();
     }
     private void Update()
     {
@@ -96,7 +103,8 @@ public class QuestManager : MonoBehaviour
             case 40:
                 if (questActionIndex == 1)
                 {
-                    player.HasWeapon(1);
+                    //player.HasWeapon(1);
+                    playerInven.AddItem(item);
                     m_portal.gameObject.SetActive(true);
                     questController.isSuccess = false;
                 }                    

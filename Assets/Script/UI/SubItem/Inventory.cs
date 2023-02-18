@@ -22,8 +22,6 @@ public class Inventory : MonoBehaviour
 
     public delegate void OnChangeItem();
     public OnChangeItem onChangeItem;
-    [SerializeField]
-    Item item;
     private int slotCnt;
     public List<Item> items = new List<Item>();
     public int SlotCnt
@@ -39,8 +37,7 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        slotCnt = 4;
-        AddItem(item);
+        slotCnt = 8;
     }
     public bool AddItem(Item _item)
     {

@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
 {
     public enum WeaponType
     {
-        Hand, Sowrd
+        Hand, Sowrd, Mace
     }
     public WeaponType weapontype;
 }

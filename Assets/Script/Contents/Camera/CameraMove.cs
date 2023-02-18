@@ -77,6 +77,7 @@ public class CameraMove : MonoBehaviour, IUpdateableObject
     // Start is called before the first frame update
     void Start()
     {
+        transform.position = objectTofollow.transform.position;
         rotX = transform.localRotation.eulerAngles.x;
         rotY = transform.localRotation.eulerAngles.y;
 

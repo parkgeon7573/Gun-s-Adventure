@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour, IUpdateableObject
 {    
@@ -19,6 +20,8 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     PlayerController m_playerContorller;
     AttackAreaUnitFind[] m_attackArea;
     [SerializeField]
+    Image aim;
+    [SerializeField]
     QuestManager questManager;
     TalkManager talkManager;
     [SerializeField]
@@ -29,13 +32,20 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     GameObject[] _weapons;
     [SerializeField]
     GameObject m_attackAreaObj;
-
-
-    public float CurrentSpeed => new Vector2(m_characterController.velocity.x, m_characterController.velocity.z).magnitude;
-
     [SerializeField]
+    Transform bulletPos;
+    [SerializeField]
+    GameObject bullet;
+    [SerializeField]
+    AudioClip step;
+    AudioSource soundSource;
+    public float CurrentSpeed => new Vector2(m_characterController.velocity.x, m_characterController.velocity.z).magnitude;
+        
     public bool[] hasWeapons;
+    public bool isDefense;
     bool isSwap;
+    [SerializeField]
+    float stepSondSpeed = 3f;
     [SerializeField]
     float Speed = 10.0f;
     float currentVelocityY;
@@ -51,7 +61,7 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         get
         {
             if (GetCurrentAnim("Sword1") || GetCurrentAnim("Sword2") || GetCurrentAnim("Sword3")||
-                GetCurrentAnim("Hand1") || GetCurrentAnim("Hand2") || GetCurrentAnim("Hand3"))
+                GetCurrentAnim("Hand1") || GetCurrentAnim("Hand2") || GetCurrentAnim("Hand3") || GetCurrentAnim("Mace1"))
             {
                 return true;
             }
@@ -86,6 +96,7 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         Attack();
         Swap();
         Jump();
+        DefenseAttack();
     }
     void Start()
     {
@@ -104,6 +115,7 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         else if (talkManager.BossDie == true)
             transform.position = portal.transform.position;
         m_characterController.enabled = true;
+        soundSource = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
     {
@@ -118,6 +130,7 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     {
         if (m_playerInput.Attack)
         {
+            if (GetCurrentAnim("Mace1")) return;
             if (equipWeapon == null)
                 return;
             if (!isSwap && !IsAttack)
@@ -139,6 +152,13 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     #region Movement
     public void MoveUpdate(Vector2 moveInput)
     {
+        if (m_stat.Speed > 1 && !soundSource.isPlaying)
+        {
+            soundSource.pitch = stepSondSpeed;
+            soundSource.clip = step;
+            soundSource.Play();
+        }
+        else if (m_stat.Speed <= 1) soundSource.Stop();
         if (!IsAttack && !m_playerContorller.isTalk)
         {
             m_stat.Speed = Speed * moveInput.magnitude;
@@ -164,6 +184,22 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
             m_animator.SetTrigger("Jump");
         }
     }
+    public void DefenseAttack()
+    {
+        if(equipWeaponIndex == 1 || equipWeaponIndex == 2)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                isDefense = true;
+                m_animator.SetBool("Defense", true);
+            }
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                isDefense = false;
+                m_animator.SetBool("Defense", false);
+            }
+        }        
+    }
     public void MoveAnimation(Vector2 moveInput)
     {
         m_animator.SetFloat("Vertical Move", moveInput.y, 0.3f, Time.deltaTime);
@@ -183,17 +219,23 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     #region SwapWeapon
     void Swap()
     {
+        aim.color = new Color(1, 1, 1, equipWeaponIndex == 2  ? 1 : 0);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            Debug.Log("22");
         if (m_playerInput.Hand && (!hasWeapons[0] || equipWeaponIndex == 0))
             return;
         if (m_playerInput.Sword && (!hasWeapons[1] || equipWeaponIndex == 1))
             return;
-
+        if (m_playerInput.Mace && (!hasWeapons[2] || equipWeaponIndex == 2))
+            return;
 
         int weaponIndex = 0;
         if (m_playerInput.Hand) weaponIndex = 0;
         if (m_playerInput.Sword) weaponIndex = 1;
+        if (m_playerInput.Mace) weaponIndex = 2;
 
-        if (m_playerInput.Hand || m_playerInput.Sword)
+        if (m_playerInput.Hand || m_playerInput.Sword || m_playerInput.Mace)
         {
             if (equipWeapon != null)
                 StartCoroutine(SetFalse(equipWeapon.gameObject));
@@ -225,7 +267,10 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     {
         hasWeapons[weaponidx] = true;
     }
-
+    public void DntHasWeapon(int weaponidx)
+    {
+        hasWeapons[weaponidx] = false;
+    }
     #endregion
     IEnumerator SetFalse(GameObject go)
     {
@@ -244,6 +289,11 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     }
 
     #region Unity Animation Event Methods
+    void AnimEvent_MaceAttack()
+    {
+        GameObject gameObject1 = Instantiate(bullet, bulletPos.position, transform.rotation);
+        Managers.Sound.Play("Effect/Ice Spell 22", Define.Sound.Effect);
+    }
     void AnimEvent_HandAttack()
     {
         SkillData skillData;
@@ -252,11 +302,12 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         var unitList = m_attackArea[skillData.attackArea].m_unitList;
         for (int i = 0; i < unitList.Count; i++)
         {
-            var e = unitList[i].GetComponent<MonsterController>();
-            if (e != null && e.isActiveAndEnabled)
+            var monster = unitList[i].GetComponent<MonsterController>();
+            var monsterstat = unitList[i].GetComponent<SkeletonStat>();
+            if (monster != null && monster.isActiveAndEnabled && monsterstat.Hp > 0)
             {
                 Managers.Sound.Play("Effect/Stab 22_1", Define.Sound.Effect);
-                e.SetDamage(skillData, m_stat.Attack);
+                monster.SetDamage(m_stat.Attack, skillData);
             }
         }
     }
@@ -277,12 +328,11 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         for (int i = 0; i < unitList.Count; i++)
         {
             var boss = unitList[i].GetComponent<BossController>();
-            var e = unitList[i].GetComponent<MonsterController>();
-            if (e != null && e.isActiveAndEnabled || boss != null)
+            var monster = unitList[i].GetComponent<MonsterController>();
+            if (monster != null && monster.isActiveAndEnabled || boss != null)
             {
-                boss.SetDamage(skillData, m_stat.Attack);
                 Managers.Sound.Play("Effect/Stab 22_1", Define.Sound.Effect);
-                e.SetDamage(skillData, m_stat.Attack);
+                monster.SetDamage(m_stat.Attack, skillData);
             }
         }
     }

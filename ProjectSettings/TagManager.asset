@@ -9,6 +9,8 @@ TagManager:
   - feature
   - Portal
   - Boss
+  - Bullet
+  - Store
   layers:
   - Default
   - TransparentFX

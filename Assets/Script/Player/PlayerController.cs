@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IUpdateableObject
 {
- 
-   
-
+    public Item[] items;
+    Inventory inven;
     PlayerStat m_stat;
     PlayerMovement m_move;
     Camera m_camera;
@@ -21,12 +20,30 @@ public class PlayerController : MonoBehaviour, IUpdateableObject
 
     public Image weapon1Img;
     public Image weapon2Img;
+    public Image weapon3Img;
     float smoothness = 10.0f;
 
+    public void OnClinked1()
+    {
+        m_move.DntHasWeapon(1);
+        inven.AddItem(items[0]);
+    }
+    public void OnClinked2()
+    {
+        m_move.DntHasWeapon(2);
+        inven.AddItem(items[1]);
+    }
     public void SetDamage(int Dmg)
     {
-        float Damage = Dmg - m_stat.Defense;
-        m_stat.Hp -= Damage;
+        if (!m_move.isDefense)
+        {
+            float Damage = Dmg - m_stat.Defense;
+            m_stat.Hp -= Damage;
+        }
+        else if (m_move.isDefense)
+        {
+            Managers.Sound.Play("Medieval Combat Sounds/Shield Metal 7_4", Define.Sound.Effect);
+        }
     }
     public void DamageAnim()
     {
@@ -68,6 +85,7 @@ public class PlayerController : MonoBehaviour, IUpdateableObject
     // Start is called before the first frame update
     void Start()
     {
+        inven = GetComponentInChildren<Inventory>();
         m_animator = GetComponent<Animator>();
         m_move = GetComponent<PlayerMovement>();
         m_stat = GetComponent<PlayerStat>();
@@ -84,6 +102,7 @@ public class PlayerController : MonoBehaviour, IUpdateableObject
         healthText.text = m_stat.Hp + "/" + m_stat.MaxHp;
         weapon1Img.color = new Color(1, 1, 1, m_move.hasWeapons[0] ? 1 : 0);
         weapon2Img.color = new Color(1, 1, 1, m_move.hasWeapons[1] ? 1 : 0);
+        weapon3Img.color = new Color(1, 1, 1, m_move.hasWeapons[2] ? 1 : 0);
     }
     private void GameOver()
     {

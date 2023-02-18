@@ -67,10 +67,15 @@ public class BossController : MonsterController, IUpdateableObject
     {
         base.Rotate(targetPos);
     }
-    public override void SetDamage(SkillData skillData, int damage)
+    public override void SetDamage(int damage, SkillData skillData = null)
     {
-
-        float Damage = skillData.Damage + damage - m_BossStat.Defense;
+        float Damage;
+        if (skillData == null)
+        {
+            Damage = damage - m_BossStat.Defense;
+        }
+        else
+            Damage = skillData.Damage + damage - m_BossStat.Defense;
         m_BossStat.Hp -= Damage;
         if (m_BossStat.Hp <= 0)
         {

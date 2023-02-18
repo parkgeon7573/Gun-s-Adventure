@@ -30,7 +30,7 @@ public class TalkManager : MonoBehaviour
         talkData.Add(30 + 1000, new string[] { "해치워 줬구나", "고마워, 체력을 회복시켜 줄게" });
         talkData.Add(31 + 1000, new string[] { "하지만 아직 문제가 있어", "보스몬스터가 남아 있는한 몬스터들은 계속 생길거야" });
 
-        talkData.Add(40 + 1000, new string[] { "던전 입구에 포탈을 열어줄게 보스몬스터를 잡아줘", "이 검을 가지고 가 2 번을 누르면 사용할수 있어" });
+        talkData.Add(40 + 1000, new string[] { "던전 입구에 포탈을 열어줄게 보스몬스터를 잡아줘", "이 검을 가지고 가 인벤토리에 넣어줄게" });
 
         talkData.Add(50 + 1000, new string[] { "보스를 잡아주었구나", "덕분에 우리를 괴롭히는 몬스터가 없어졌어" });
 
