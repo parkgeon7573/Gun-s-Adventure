@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
     RaycastHit hit;
     Vector3 dir;
     AudioSource soundSource;
+    bool move = true;
     private void OnEnable()
     {
         soundSource = GetComponent<AudioSource>();
@@ -28,7 +29,10 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, dir, Time.deltaTime * 15);
+        if(move == true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, dir, Time.deltaTime * 15);
+        }       
     }
 
     /*private void Hit()
@@ -60,6 +64,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (transform.childCount > 4) return;
         if (other.CompareTag("Monster"))
         {
             SkeletonController skeleton = other.GetComponent<SkeletonController>();
@@ -72,7 +77,7 @@ public class Bullet : MonoBehaviour
             boss.SetDamage(damage);
             Boom();
         }
-        if (other.CompareTag("feature"))
+        if (other.CompareTag("feature") || other.CompareTag("Portal"))
         {
             Boom();
         }
@@ -86,6 +91,7 @@ public class Bullet : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(false);
         soundSource.clip = iceSound;
         soundSource.Play();
+        move = false;
     }
 
     IEnumerator Destroygo(GameObject go)

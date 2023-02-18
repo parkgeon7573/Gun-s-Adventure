@@ -21,7 +21,9 @@ public class QuestManager : MonoBehaviour
     void Awake()
     {
         m_player = player.GetComponentInChildren<PlayerController>();
-        m_portal.gameObject.SetActive(false);
+        if(questId > 30) m_portal.gameObject.SetActive(true);
+        else
+            m_portal.gameObject.SetActive(false);
         questList = new Dictionary<int, QuestData>();
         GenerateData();
     }

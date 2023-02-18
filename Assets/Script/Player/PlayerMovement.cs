@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour, IUpdateableObject
@@ -110,10 +111,7 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         m_characterController = GetComponent<CharacterController>();
         talkManager = GameObject.Find("TalkManager").GetComponent<TalkManager>();
         m_characterController.enabled = false;
-        if (questManager == null)
-            m_characterController.enabled = true;
-        else if (talkManager.BossDie == true)
-            transform.position = portal.transform.position;
+        StartPosition();
         m_characterController.enabled = true;
         soundSource = GetComponent<AudioSource>();
     }
@@ -122,6 +120,20 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         MoveUpdate(m_playerInput.MoveInput);
     }
 
+    void StartPosition()
+    {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            if (questManager == null)
+                m_characterController.enabled = true;
+            else if (talkManager.BossDie == true)
+                transform.position = portal.transform.position;
+        }
+        else if(SceneManager.GetActiveScene().name == "Boss")
+        {
+            transform.position = portal.transform.position;
+        }
+    }
     void ResetKeyBuffer()
     {
         m_keyBuffer.Clear();
@@ -150,15 +162,26 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     }
 
     #region Movement
+    bool currentjump()
+    {
+        if (currentVelocityY < -10 || currentVelocityY > 10)
+        {
+            return false;
+        }
+        else return true;
+    }
     public void MoveUpdate(Vector2 moveInput)
     {
-        if (m_stat.Speed > 1 && !soundSource.isPlaying)
+        if (m_stat.Speed > 1 && !soundSource.isPlaying && currentjump() && m_characterController.isGrounded)
         {
             soundSource.pitch = stepSondSpeed;
             soundSource.clip = step;
             soundSource.Play();
         }
-        else if (m_stat.Speed <= 1) soundSource.Stop();
+        else if (m_stat.Speed <= 1 || !currentjump())
+        {
+            soundSource.Stop();
+        }
         if (!IsAttack && !m_playerContorller.isTalk)
         {
             m_stat.Speed = Speed * moveInput.magnitude;

@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour, IUpdateableObject
     public Image weapon3Img;
     float smoothness = 10.0f;
 
+
     public void OnClinked1()
     {
         m_move.DntHasWeapon(1);
