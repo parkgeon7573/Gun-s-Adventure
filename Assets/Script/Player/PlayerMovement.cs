@@ -110,9 +110,7 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         m_playerContorller = GetComponent<PlayerController>();
         m_characterController = GetComponent<CharacterController>();
         talkManager = GameObject.Find("TalkManager").GetComponent<TalkManager>();
-        m_characterController.enabled = false;
         StartPosition();
-        m_characterController.enabled = true;
         soundSource = GetComponent<AudioSource>();
     }
     private void FixedUpdate()

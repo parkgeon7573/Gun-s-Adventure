@@ -8,7 +8,6 @@ public class ItemDatabase : MonoBehaviour
     public int money;
     private void Awake()
     {
-        money = 0;
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
