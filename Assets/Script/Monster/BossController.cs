@@ -27,7 +27,9 @@ public class BossController : MonsterController, IUpdateableObject
     // Start is called before the first frame update
     void Start()
     {
+        _traceRange = 15f;
         _attackRange = 5f;
+        _stopAtkRange = 6f;
         InitState(this, FSMPatrolState.Instance);
         m_navAgent = GetComponent<NavMeshAgent>();
         m_animator = GetComponent<Animator>();

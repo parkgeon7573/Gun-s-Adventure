@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
     PlayerController m_playerContorller;
     AttackAreaUnitFind[] m_attackArea;
     [SerializeField]
+    CameraMove m_camera;
+    [SerializeField]
     Image aim;
     [SerializeField]
     QuestManager questManager;
@@ -125,7 +127,13 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
             if (questManager == null)
                 m_characterController.enabled = true;
             else if (talkManager.BossDie == true)
+            {                
                 transform.position = portal.transform.position;
+                m_camera.transform.position = transform.position;
+                HasWeapon(1);
+                HasWeapon(2);
+            }
+                
         }
         else if(SceneManager.GetActiveScene().name == "Boss")
         {
@@ -232,7 +240,7 @@ public class PlayerMovement : MonoBehaviour, IUpdateableObject
         m_skillTable.Add(Sword1, new SkillData() { attackArea = 0, knockbackDist = 0.3f, Effet = 0, Damage = 15 });
         m_skillTable.Add(Sword2, new SkillData() { attackArea = 1, knockbackDist = 0.5f, Effet = 1, Damage = 20 });
         m_skillTable.Add(Sword3, new SkillData() { attackArea = 2, knockbackDist = 1f, Effet = 1, Damage = 35 });
-        m_skillTable.Add(Hand1, new SkillData() { attackArea = 3, knockbackDist = 0.1f, Damage = 80 });
+        m_skillTable.Add(Hand1, new SkillData() { attackArea = 3, knockbackDist = 0.1f, Damage = 10 });
         m_skillTable.Add(Hand2, new SkillData() { attackArea = 3, knockbackDist = 0.1f, Damage = 15 });
         m_skillTable.Add(Hand3, new SkillData() { attackArea = 4, knockbackDist = 0.1f, Damage = 25 });
     }

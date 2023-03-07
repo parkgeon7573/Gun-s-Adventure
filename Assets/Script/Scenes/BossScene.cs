@@ -13,10 +13,13 @@ public class BossScene : BaseScene
         //Managers.UI.ShowPopupUI<UI_Inven>();
 
     }
-
-    public override void Clear()
+    private void OnDisable()
     {
         Managers.Sound.Clear();
+    }
+    public override void Clear()
+    {
+        
     }
 
 

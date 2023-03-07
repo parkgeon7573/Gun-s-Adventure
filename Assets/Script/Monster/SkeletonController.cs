@@ -6,6 +6,13 @@ public class SkeletonController : MonsterController, IUpdateableObject
 {
     GameScene gameScene;
     QuestManager quest;
+
+    void StartMonster()
+    {
+        gameScene.CreateMonster();
+        m_SkelltonStat.Hp = m_SkelltonStat.MaxHp;
+        ChangeState(FSMPatrolState.Instance);
+    }
     private void OnEnable()
     {
         UpdateManager.Instance.RegisterUpdateablObject(this);
@@ -92,11 +99,12 @@ public class SkeletonController : MonsterController, IUpdateableObject
                 ChangeState(FSMDieState.Instance);
                 questController.isSuccess = true;
                 questController.monsterDie++;
-                gameScene.CreateMonster();
+                Invoke("StartMonster", 5f);
             }
 
         }
     }
+
     public override bool Equals(object other)
     {
         return base.Equals(other);

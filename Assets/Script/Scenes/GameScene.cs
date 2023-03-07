@@ -5,13 +5,17 @@ using UnityEngine;
 public class GameScene : BaseScene
 {
     [SerializeField]
+    CameraMove m_camera;
+    [SerializeField]
+    PlayerController m_player;
+    [SerializeField]
     WaypointController m_wayCtr;
     [SerializeField]
     GameObject m_loadingObj;
     protected override void Init()
     {
         base.Init();
-
+        m_camera.transform.position = m_player.transform.position;
         m_loadingObj.SetActive(false);
         //Managers.UI.ShowPopupUI<UI_Inven>();
 

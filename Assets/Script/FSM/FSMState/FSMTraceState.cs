@@ -3,7 +3,7 @@ public class FSMTraceState : FSMSingleton<FSMTraceState>, IFSMState<MonsterContr
 {
     public void Enter(MonsterController monsterController)
     {
-        Debug.Log(" -- SampleStateTrace Enter ");
+            Debug.Log(" -- SampleStateTrace Enter ");
     }
 
     public void Execute(MonsterController monsterController)

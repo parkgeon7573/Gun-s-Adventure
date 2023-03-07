@@ -33,6 +33,7 @@ public class CameraMove : MonoBehaviour, IUpdateableObject
     private void OnEnable()
     {
         UpdateManager.Instance.RegisterUpdateablObject(this);
+        transform.position = objectTofollow.position;
     }
 
     private void OnDisable()
@@ -77,7 +78,7 @@ public class CameraMove : MonoBehaviour, IUpdateableObject
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = objectTofollow.transform.position;
+        
         rotX = transform.localRotation.eulerAngles.x;
         rotY = transform.localRotation.eulerAngles.y;
 

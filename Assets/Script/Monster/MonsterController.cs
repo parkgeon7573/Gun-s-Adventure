@@ -24,6 +24,7 @@ public class MonsterController : FSM<MonsterController>
     public float _traceRange = 10f;
 
     public float _attackRange = 3f;
+    public float _stopAtkRange = 3f;
     public const float _AttackTime = 3f;
     public float _lastAttackTime = 0f;
     public int m_curWayPoint = 0;
@@ -125,11 +126,10 @@ public class MonsterController : FSM<MonsterController>
         Managers.Sound.Play("Whoosh/Whoosh 14_5", Define.Sound.Effect);
         PlayerController player = _target.GetComponent<PlayerController>();
         player.SetDamage(m_BossStat.Attack);
-        player.DamageAnim();
     }
     void AnimEvent_Die()
     {
-        Destroy(gameObject);
+        Managers.Resource.Destroy(gameObject);
     }
     #endregion
 }

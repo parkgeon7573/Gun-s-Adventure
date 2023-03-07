@@ -16,12 +16,14 @@ public class QuestManager : MonoBehaviour
     NPCController questController;
     [SerializeField]
     Item item;
+    TalkManager talkManager;
     Dictionary<int, QuestData> questList;
     // Start is called before the first frame update
     void Awake()
     {
+        talkManager = GameObject.Find("TalkManager").GetComponent<TalkManager>();
         m_player = player.GetComponentInChildren<PlayerController>();
-        if(questId > 30) m_portal.gameObject.SetActive(true);
+        if(questId > 30 || talkManager.BossDie == true) m_portal.gameObject.SetActive(true);
         else
             m_portal.gameObject.SetActive(false);
         questList = new Dictionary<int, QuestData>();
